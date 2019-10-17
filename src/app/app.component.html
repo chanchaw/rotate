@@ -1,21 +1,64 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
-<router-outlet></router-outlet>
+<div #rotateDiv class="rotateDiv">
+  <div *ngIf="tableData.length;else elseBlock">
+  <div nz-row class="title">成品发货单</div>
+  <nz-divider></nz-divider>
+  <div nz-row style="width: 100%">
+      <div nz-col nzSpan="8">
+          发货单据编号：{{ billMain.billCode }}
+      </div>
+  
+      <div nz-col nzSpan="8">
+          <span>客户：{{ billMain.clientName }}</span>
+      </div>
+  
+      <div nz-col nzSpan="8">
+          <span>发货日期：{{ billMain.billDate | date:'yyyy-MM-dd' }}</span>
+      </div>
+  </div>
+  <nz-table #nzTable [nzData]="tableData" nzSize="small" 
+    nzShowPagination="false" style="width: 100%" nzBordered>
+      <thead>
+        <tr class="colHeaderBackColor">
+          <th nzWidth="30px">#</th>
+          <th nzWidth="70px">订单号</th>
+          <th nzWidth="90px">品名</th>
+          <th nzWidth="70px">规格</th>
+          <th nzWidth="70px">颜色</th>
+          <th nzWidth="70px">色号</th>
+          <th nzWidth="40px" class="align-right">匹数</th><th nzWidth="60px" class="align-right">公斤</th><th nzWidth="60px" class="align-right">米数</th>
+          <th>客户工艺</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of nzTable.data;let index = index" 
+          [ngClass]="{'colHeaderBackColor': isEven(index)}">
+  
+          <td>{{ index + 1 }}</td>
+          <td>{{data.orderno}}</td>
+          <td>{{data.product_name}}</td>
+          <td>{{data.specification}}</td>
+          <td>{{data.color}}</td>
+          <td>{{data.colorno}}</td>
+          <td class="align-right">{{data.pairs | number:'1.0-0'}}</td>
+          <td class="align-right">{{data.kilo | number:'1.1-1'}}</td>
+          <td class="align-right">{{data.meter | number:'1.1-1'}}</td>
+          <td>{{data.client_process}}</td>
+        </tr>
+        <td></td>
+        <td>汇总：</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="align-right">{{ agg_pair | number:'1.0-0' }}</td>
+        <td class="align-right">{{ agg_kilo | number:'1.1-1' }}</td>
+        <td class="align-right">{{ agg_meter | number:'1.1-1' }}</td>
+        <td></td>
+      </tbody>
+  
+    </nz-table>
+  
+  </div>
+  </div>
+  
+  <ng-template #elseBlock>由于超出时效期，本单据明细数据不可再查看！</ng-template>

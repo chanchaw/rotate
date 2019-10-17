@@ -1,27 +1,17 @@
-# Rotate
+### 项目说明
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.2.
+微信服务号推送消息中可以点击跳转到详情页面，使用 `Angular8` + `ng-zorro-antd` 开发的 `web` 页面
+使用表格显示多行数据，共有10列数据，由于是在手机上显示，使用 `transform: rotate(90deg);` 旋转
+90°来显示。
 
-## Development server
+### 问题
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+当只有两行数据时旋转90°后整体（ 表格 + title ）是向上对齐到屏幕顶，向右对齐到屏幕最右边
+当数据达到5行时，向上距离屏幕顶端会有一段距离（ 想要达到的效果是向上对齐到屏幕顶端 ）
+如果将 `css` 中的最小、最大高度调整为固定高度，在5行数据的情况下向上可以对齐到屏幕顶端
+但是屏幕只可显示出4行数据，并且不能够使用手指拖动显示更多内容
 
-## Code scaffolding
+### 测试
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+要切换2行数据和5行数据，在 文件`app.component.ts` 的行号39处注释，并且启用42行。
+联系我：QQ = 409223171，或者邮件我。
